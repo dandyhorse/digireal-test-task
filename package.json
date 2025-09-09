@@ -1,0 +1,44 @@
+{
+  "name": "digireal-test-task",
+  "version": "0.0.1",
+  "description": "",
+  "main": ".build/src/server.js",
+  "scripts": {
+    "build": "tsc",
+    "db:migrate": "npx prisma migrate deploy",
+    "db:up": "npm run db:migrate && prisma generate",
+    "test": "jest --detectOpenHandles --forceExit",
+    "dev": "nodemon --exec ts-node -r tsconfig-paths/register src/server.ts",
+    "start": "node -r tsconfig-paths/register .build/src/server.js"
+  },
+  "author": "daniil gerus",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^6.17.1",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/redis": "^4.0.10",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "moment": "^2.30.1",
+    "moment-timezone": "^0.6.0",
+    "nodemon": "^3.1.10",
+    "redis": "^5.8.3",
+    "ts-node": "^10.9.2",
+    "zod": "^4.1.5"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.3.1",
+    "@types/supertest": "^6.0.3",
+    "jest": "^30.1.3",
+    "nodemon": "^3.1.10",
+    "prisma": "^6.17.1",
+    "supertest": "^7.1.4",
+    "ts-jest": "^29.4.1",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.0.4"
+  }
+}
