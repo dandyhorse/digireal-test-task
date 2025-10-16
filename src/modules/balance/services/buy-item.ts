@@ -9,13 +9,13 @@ export const buyItem = async ({ userId, itemId }: BuyItemDto & { userId: number 
       where: { id: itemId },
     });
 
-    if (!item || item.ownerId !== null) throw { details: 'Предмет недоступен' };
+    if (!item || item.ownerId !== null) throw { details: 'Item is unvailable' };
 
     const user = await tx.user.findUnique({
       where: { id: userId },
     });
 
-    if (user.balance < item.price) throw { details: 'Недостаточно средств' };
+    if (user.balance < item.price) throw { details: 'Not enough balance' };
 
     const { balance } = await tx.user.update({
       where: { id: userId },

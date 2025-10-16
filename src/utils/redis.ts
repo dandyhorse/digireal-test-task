@@ -23,8 +23,11 @@ export const cacheAllBalances = async () => {
 
   const promises: Promise<any>[] = [];
 
-  for (const { id, balance } of userBalances) {
-    promises.push(redisClient.set(`${RedisKeys.USER_BALANCE}:${id}`, balance.toFixed(2)));
+  for (const { id: userId, balance } of userBalances) {
+    const key = `${RedisKeys.USER_BALANCE}:${userId}`;
+    const fixedBalance = balance.toFixed(2);
+
+    promises.push(redisClient.set(key, fixedBalance));
   }
 
   await Promise.all(promises);
@@ -44,12 +47,14 @@ export const updateUserCachedBalance = async ({
   balance: Decimal;
 }) => {
   const key = `${RedisKeys.USER_BALANCE}:${userId}`;
-  await redisClient.set(key, balance.toFixed(2));
+  const fixedBalance = balance.toFixed(2);
+
+  await redisClient.set(key, fixedBalance);
 
   systemLogger.log({
     level: LogLevel.INFO,
     module: 'redis',
-    message: `User balance updated in cache: ${userId} = ${balance.toFixed(2)}`,
+    message: `User balance updated in cache: ${userId} = ${fixedBalance}`,
   });
 };
 
