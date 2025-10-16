@@ -5,7 +5,6 @@ import { jwtAuth } from '../../middlewares/jwt-auth';
 
 import * as BalanceSchemas from './schemas';
 import * as BalanceServices from './services';
-import { buyItemSchema } from './schemas/buy-item.schema';
 
 const router = express.Router();
 
@@ -35,7 +34,7 @@ router.post('/', async (req: RequestExt, res: Response, next: any) => {
 
 router.post('/buy-item', async (req: RequestExt, res: Response, next: any) => {
   try {
-    const { itemId } = validate(buyItemSchema, req.body);
+    const { itemId } = validate(BalanceSchemas.buyItemSchema, req.body);
 
     const result = await BalanceServices.buyItem({ userId: req.user.id, itemId });
 
